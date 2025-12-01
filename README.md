@@ -160,3 +160,9 @@ Comece com `/prd-create` para a feature. Quando perguntado, especifique que é p
 - [C4 Model](https://c4model.com/)
 - [MADR - Markdown ADRs](https://adr.github.io/madr/)
 - [Mermaid Docs](https://mermaid.js.org/)
+
+---
+
+## Apoie
+
+Se este framework te ajudou a escrever documentação melhor, considere dar uma ⭐ — isso ajuda outras pessoas a descobrirem o projeto!
