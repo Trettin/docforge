@@ -161,3 +161,9 @@ Start with `/prd-create` for the feature. When asked, specify that it's for an e
 - [C4 Model](https://c4model.com/)
 - [MADR - Markdown ADRs](https://adr.github.io/madr/)
 - [Mermaid Docs](https://mermaid.js.org/)
+
+---
+
+## Support
+
+If this framework helped you write better documentation, consider giving it a ⭐ — it helps others discover the project!
