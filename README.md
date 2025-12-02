@@ -163,7 +163,10 @@ Comece com `/prd-create` para a feature. Quando perguntado, especifique que é p
 - [MADR - Markdown ADRs](https://adr.github.io/madr/)
 - [Mermaid Docs](https://mermaid.js.org/)
 
----
+## Créditos
+
+Grande parte dos prompts em `.claude/` foram desenvolvidos por **Wesley Williams** durante o MBA em Engenharia de Software com IA na **Full Cycle**. Este repositório adapta, expande e organiza esse material em um framework reutilizável.
+
 
 ## Apoie
 
