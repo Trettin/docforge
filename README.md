@@ -166,7 +166,7 @@ Start with `/prd-create` for the feature. When asked, specify that it's for an e
 
 ## Credits
 
-Most of the prompts in `.claude/` were developed by **Wesley Williams** during the MBA em Engenharia de Software com IA at **Full Cycle**. This repository adapts, expands, and organizes that material into a reusable framework.
+Most of the prompts in `.claude/` were developed by **Wesley Williams** during the MBA in Software Engineering with AI at **Full Cycle**. This repository adapts, expands, and organizes that material into a reusable framework.
 
 ## Support
 
