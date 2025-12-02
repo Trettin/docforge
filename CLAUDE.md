@@ -4,7 +4,7 @@ This file provides guidance to Claude Code when working with this repository.
 
 ## Project Overview
 
-This is a Software Documentation Framework - a boilerplate repository that helps developers create proper documentation before starting to code. Users interact with Claude Code by running slash commands in sequence.
+This is **DocForge** - a documentation-first framework that helps developers create proper documentation before starting to code. Users interact with Claude Code by running slash commands in sequence.
 
 ## Main Files and Folders
 

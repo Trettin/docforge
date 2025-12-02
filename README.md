@@ -1,4 +1,6 @@
-# Software Documentation Framework
+# DocForge
+
+**Forge your documentation before you forge your code.**
 
 ![Version](https://img.shields.io/badge/version-0.1.0-blue)
 ![License](https://img.shields.io/badge/license-MIT-green)
@@ -6,7 +8,7 @@
 ![Claude Code](https://img.shields.io/badge/Claude%20Code-compatible-orange)
 [![pt-BR](https://img.shields.io/badge/lang-pt--BR-green)](../../tree/feat/pt-br)
 
-A framework to help developers start new projects with proper documentation through an AI-assisted interactive workflow.
+A documentation-first framework that guides developers through creating proper software documentation before writing code, powered by AI-assisted interactive workflows.
 
 ## What is this?
 
