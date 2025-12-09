@@ -78,6 +78,23 @@ Generate ONLY diagrams that significantly increase FDD comprehension. Your objec
 
 ## OPERATIONAL WORKFLOW
 
+### Phase 0: Check for User-Specified Diagrams (EXECUTE FIRST)
+
+**Before any analysis, check if the user provided specific diagram instructions.**
+
+Your task prompt may include a "Diagram instructions" field. Check its value:
+
+1. **If "USER REQUESTED SPECIFIC DIAGRAMS..."**:
+   - The user has specified exactly which diagrams to generate
+   - **SKIP Phases 2-4** (significance evaluation, type selection, pruning)
+   - Go directly to Phase 1 (FDD analysis) to understand the content
+   - Then generate ONLY the diagrams the user specified
+   - Still validate against FDD content - do not fabricate information
+
+2. **If "No specific diagrams requested..."** (default):
+   - Execute the full workflow (Phases 1-9) as normal
+   - Agent decides which diagrams to generate based on analysis
+
 ### Phase 1: FDD Deep Analysis (EXECUTE BEFORE ANY DIAGRAM GENERATION)
 
 **This is the most critical phase. Invest time here.**

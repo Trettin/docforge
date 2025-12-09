@@ -136,6 +136,23 @@ Example workflow:
 
 ## OPERATIONAL WORKFLOW
 
+### Phase 0: Check for User-Specified Diagrams (EXECUTE FIRST)
+
+**Before any analysis, check if the user provided specific diagram instructions.**
+
+Your task prompt may include a "Diagram instructions" field. Check its value:
+
+1. **If "USER REQUESTED SPECIFIC DIAGRAMS..."**:
+   - The user has specified exactly which C4 levels to generate
+   - **SKIP automatic sufficiency evaluation** for levels not requested
+   - Go directly to Phase 1 (FDD analysis) to understand the content
+   - Then generate ONLY the C4 levels the user specified
+   - Still validate against FDD content - do not fabricate information
+
+2. **If "No specific diagrams requested..."** (default):
+   - Execute the full workflow (Phases 1-6) as normal
+   - Agent decides which C4 levels to generate based on information sufficiency
+
 ### Phase 1: FDD Analysis (Execute Before Any Diagram Generation)
 
 When you receive a file path or folder:

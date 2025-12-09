@@ -1,13 +1,14 @@
 ---
-description: Generate C4 diagrams from a Feature Design Document (FDD). Usage: /generate-c4 <path-to-fdd.md> [output-folder] [--no-images]
+description: Generate C4 diagrams from a Feature Design Document (FDD). Usage: /c4-diagram-create <path-to-fdd.md> <output-folder> [--no-images] [diagram-instructions]
 ---
 
 You MUST invoke the c4-diagram-generator agent using the Task tool with subagent_type="c4-diagram-generator".
 
-Extract the FDD file path, output folder, and optional --no-images flag from the command arguments:
+Extract the FDD file path, output folder, optional --no-images flag, and optional diagram instructions from the command arguments:
 - FDD file path (required)
 - Output folder (required)
 - --no-images flag (optional, if present: skip PNG generation, if absent: generate PNG images by default)
+- Diagram instructions (optional): specific C4 levels and focus areas the user wants generated, described in natural language. Example: "1. C3 (Component): WebSocketServer internals with ConnectionManager and EventRouter"
 
 Pass the following prompt to the agent:
 
@@ -15,6 +16,7 @@ Pass the following prompt to the agent:
 
 Output folder: [OUTPUT_FOLDER]
 PNG generation: [PNG_INSTRUCTION]
+Diagram instructions: [DIAGRAM_INSTRUCTIONS]
 
 Execute your complete workflow (Phases 1-6) following all internal guidelines.
 
@@ -46,6 +48,14 @@ If --no-images flag IS NOT present (default):
 - [PNG_INSTRUCTION] = "ENABLED"
 - [PNG_BEHAVIOR] = "Execute Phase 5.6: Generate PNG images with automatic error correction (max 3 attempts per file)"
 
+Replace [DIAGRAM_INSTRUCTIONS] based on user input:
+
+If diagram instructions ARE provided:
+- [DIAGRAM_INSTRUCTIONS] = "USER REQUESTED SPECIFIC DIAGRAMS. Generate ONLY these C4 levels/diagrams: [user's diagram list]. Skip automatic sufficiency evaluation for other levels and generate exactly what the user specified. Still validate against FDD content - do not fabricate information not present in the FDD."
+
+If diagram instructions ARE NOT provided (default):
+- [DIAGRAM_INSTRUCTIONS] = "No specific diagrams requested. Agent decides which C4 levels to generate based on FDD information sufficiency (Phase 1)."
+
 ---
 
 ## After Generating C4 Diagrams
@@ -54,47 +64,47 @@ After successfully generating the diagrams:
 
 1. **Update `docs/PROGRESS.md`**:
    - Mark the C4 Diagrams step as completed with `[x]`
-   - Add `◄── VOCÊ ESTÁ AQUI` to the next step
+   - Add `◄── YOU ARE HERE` to the next step
    - Update the `Last Updated` timestamp
    - Update the `Current Step` number
 
 2. **Determine next steps based on context** (project vs feature):
 
-   **Se nível de projeto** (source file is `docs/project/HLD.md`):
+   **If project level** (source file is `docs/project/HLD.md`):
    ```
    ---
-   Progresso: [X/Y] documentos completados
+   Progress: [X/Y] documents completed
 
-   Completados:
+   Completed:
    - [x] PRD
    - [x] User Stories
    - [x] HLD
    - [x] C4 Diagrams
 
-   **Importante:** Revise os diagramas C4 gerados antes de prosseguir. Verifique se representam corretamente a arquitetura do sistema.
+   **Important:** Review the generated C4 diagrams before proceeding. Verify that they correctly represent the system architecture.
 
-   Próximo passo: Execute `/clear` para limpar o contexto, depois:
-   - Se ainda não gerou diagramas Mermaid: `/mermaid-diagram-create docs/project/HLD.md docs/project/diagrams/`
-   - Se deep research for necessário: `/deep-research-1`
-   - Se houver decisões arquiteturais a documentar: `/adr-create`
+   Next step: Run `/clear` to clear context, then:
+   - If you haven't generated Mermaid diagrams yet: `/mermaid-diagram-create docs/project/HLD.md docs/project/diagrams/`
+   - If deep research is needed: `/deep-research-1`
+   - If there are architectural decisions to document: `/adr-create`
    ---
    ```
 
-   **Se nível de feature** (source file is `docs/features/[nome]/FDD.md`):
+   **If feature level** (source file is `docs/features/[name]/FDD.md`):
    ```
    ---
-   Progresso: [X/Y] documentos completados
+   Progress: [X/Y] documents completed
 
-   Completados:
+   Completed:
    - [x] PRD
    - [x] User Stories
    - [x] FDD
    - [x] C4 Diagrams
 
-   **Importante:** Revise os diagramas C4 gerados antes de prosseguir. Verifique se representam corretamente a arquitetura da feature.
+   **Important:** Review the generated C4 diagrams before proceeding. Verify that they correctly represent the feature architecture.
 
-   Próximo passo: Execute `/clear` para limpar o contexto, depois:
-   - Se ainda não gerou diagramas Mermaid: `/mermaid-diagram-create docs/features/[nome]/FDD.md docs/features/[nome]/diagrams/`
-   - Se houver decisões arquiteturais a documentar: `/adr-create`
+   Next step: Run `/clear` to clear context, then:
+   - If you haven't generated Mermaid diagrams yet: `/mermaid-diagram-create docs/features/[name]/FDD.md docs/features/[name]/diagrams/`
+   - If there are architectural decisions to document: `/adr-create`
    ---
    ```

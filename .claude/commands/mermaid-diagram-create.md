@@ -1,18 +1,20 @@
 ---
-description: Generate Mermaid diagrams from a Feature Design Document (FDD). Usage: /generate-mermaid <path-to-fdd.md> [output-folder]
+description: Generate Mermaid diagrams from a Feature Design Document (FDD). Usage: /mermaid-diagram-create <path-to-fdd.md> <output-folder> [diagram-instructions]
 ---
 
 You MUST invoke the mermaid-diagram-generator agent using the Task tool with subagent_type="mermaid-diagram-generator".
 
-Extract the FDD file path and output folder from the command arguments:
+Extract the FDD file path, output folder, and optional diagram instructions from the command arguments:
 - FDD file path (required)
 - Output folder (required)
+- Diagram instructions (optional): specific diagrams the user wants generated, described in natural language. Example: "1. Sequence: Connection flow with device_id, 2. Flowchart: Event routing"
 
 Pass the following detailed prompt to the agent:
 
 "Generate Mermaid diagrams from the Feature Design Document located at [FDD_FILE_PATH].
 
 Output folder: [OUTPUT_FOLDER]
+Diagram instructions: [DIAGRAM_INSTRUCTIONS]
 
 The agent will execute its complete workflow (Phases 1-9). Your task is to ensure the agent receives the correct FDD path and output folder.
 
@@ -56,6 +58,14 @@ Replace [FDD_FILE_PATH] with the actual file path from command arguments.
 Replace [OUTPUT_FOLDER] with the specified output folder from command arguments.
 Replace [feature-name] with the appropriate feature name extracted from the FDD filename (e.g., "ratelimiter" from "ratelimiter-fdd.md").
 
+Replace [DIAGRAM_INSTRUCTIONS] based on user input:
+
+If diagram instructions ARE provided:
+- [DIAGRAM_INSTRUCTIONS] = "USER REQUESTED SPECIFIC DIAGRAMS. Generate ONLY these diagrams: [user's diagram list]. Skip the automatic significance evaluation (Phases 2-4) and generate exactly what the user specified. Still validate against FDD content - do not fabricate information not present in the FDD."
+
+If diagram instructions ARE NOT provided (default):
+- [DIAGRAM_INSTRUCTIONS] = "No specific diagrams requested. Agent decides which diagrams to generate based on FDD analysis and significance criteria (Phases 1-4)."
+
 ---
 
 ## After Generating Mermaid Diagrams
@@ -64,47 +74,47 @@ After successfully generating the diagrams:
 
 1. **Update `docs/PROGRESS.md`**:
    - Mark the Mermaid Diagrams step as completed with `[x]`
-   - Add `◄── VOCÊ ESTÁ AQUI` to the next step
+   - Add `◄── YOU ARE HERE` to the next step
    - Update the `Last Updated` timestamp
    - Update the `Current Step` number
 
 2. **Determine next steps based on context** (project vs feature):
 
-   **Se nível de projeto** (source file is `docs/project/HLD.md`):
+   **If project level** (source file is `docs/project/HLD.md`):
    ```
    ---
-   Progresso: [X/Y] documentos completados
+   Progress: [X/Y] documents completed
 
-   Completados:
+   Completed:
    - [x] PRD
    - [x] User Stories
    - [x] HLD
    - [x] Mermaid Diagrams
 
-   **Importante:** Revise os diagramas Mermaid gerados antes de prosseguir. Verifique se representam corretamente os fluxos do sistema.
+   **Important:** Review the generated Mermaid diagrams before proceeding. Verify that they correctly represent the system flows.
 
-   Próximo passo: Execute `/clear` para limpar o contexto, depois:
-   - Se ainda não gerou diagramas C4: `/c4-diagram-create docs/project/HLD.md docs/project/c4/`
-   - Se deep research for necessário: `/deep-research-1`
-   - Se houver decisões arquiteturais a documentar: `/adr-create`
+   Next step: Run `/clear` to clear context, then:
+   - If you haven't generated C4 diagrams yet: `/c4-diagram-create docs/project/HLD.md docs/project/c4/`
+   - If deep research is needed: `/deep-research-1`
+   - If there are architectural decisions to document: `/adr-create`
    ---
    ```
 
-   **Se nível de feature** (source file is `docs/features/[nome]/FDD.md`):
+   **If feature level** (source file is `docs/features/[name]/FDD.md`):
    ```
    ---
-   Progresso: [X/Y] documentos completados
+   Progress: [X/Y] documents completed
 
-   Completados:
+   Completed:
    - [x] PRD
    - [x] User Stories
    - [x] FDD
    - [x] Mermaid Diagrams
 
-   **Importante:** Revise os diagramas Mermaid gerados antes de prosseguir. Verifique se representam corretamente os fluxos da feature.
+   **Important:** Review the generated Mermaid diagrams before proceeding. Verify that they correctly represent the feature flows.
 
-   Próximo passo: Execute `/clear` para limpar o contexto, depois:
-   - Se ainda não gerou diagramas C4: `/c4-diagram-create docs/features/[nome]/FDD.md docs/features/[nome]/c4/`
-   - Se houver decisões arquiteturais a documentar: `/adr-create`
+   Next step: Run `/clear` to clear context, then:
+   - If you haven't generated C4 diagrams yet: `/c4-diagram-create docs/features/[name]/FDD.md docs/features/[name]/c4/`
+   - If there are architectural decisions to document: `/adr-create`
    ---
    ```
