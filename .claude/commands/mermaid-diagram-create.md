@@ -1,18 +1,20 @@
 ---
-description: Generate Mermaid diagrams from a Feature Design Document (FDD). Usage: /generate-mermaid <path-to-fdd.md> [output-folder]
+description: Generate Mermaid diagrams from a Feature Design Document (FDD). Usage: /mermaid-diagram-create <path-to-fdd.md> <output-folder> [diagram-instructions]
 ---
 
 You MUST invoke the mermaid-diagram-generator agent using the Task tool with subagent_type="mermaid-diagram-generator".
 
-Extract the FDD file path and output folder from the command arguments:
+Extract the FDD file path, output folder, and optional diagram instructions from the command arguments:
 - FDD file path (required)
 - Output folder (required)
+- Diagram instructions (optional): specific diagrams the user wants generated, described in natural language. Example: "1. Sequence: Connection flow with device_id, 2. Flowchart: Event routing"
 
 Pass the following detailed prompt to the agent:
 
 "Generate Mermaid diagrams from the Feature Design Document located at [FDD_FILE_PATH].
 
 Output folder: [OUTPUT_FOLDER]
+Diagram instructions: [DIAGRAM_INSTRUCTIONS]
 
 The agent will execute its complete workflow (Phases 1-9). Your task is to ensure the agent receives the correct FDD path and output folder.
 
@@ -55,6 +57,14 @@ CRITICAL RULES:
 Replace [FDD_FILE_PATH] with the actual file path from command arguments.
 Replace [OUTPUT_FOLDER] with the specified output folder from command arguments.
 Replace [feature-name] with the appropriate feature name extracted from the FDD filename (e.g., "ratelimiter" from "ratelimiter-fdd.md").
+
+Replace [DIAGRAM_INSTRUCTIONS] based on user input:
+
+If diagram instructions ARE provided:
+- [DIAGRAM_INSTRUCTIONS] = "USER REQUESTED SPECIFIC DIAGRAMS. Generate ONLY these diagrams: [user's diagram list]. Skip the automatic significance evaluation (Phases 2-4) and generate exactly what the user specified. Still validate against FDD content - do not fabricate information not present in the FDD."
+
+If diagram instructions ARE NOT provided (default):
+- [DIAGRAM_INSTRUCTIONS] = "No specific diagrams requested. Agent decides which diagrams to generate based on FDD analysis and significance criteria (Phases 1-4)."
 
 ---
 

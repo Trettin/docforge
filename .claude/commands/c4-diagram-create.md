@@ -1,13 +1,14 @@
 ---
-description: Generate C4 diagrams from a Feature Design Document (FDD). Usage: /generate-c4 <path-to-fdd.md> [output-folder] [--no-images]
+description: Generate C4 diagrams from a Feature Design Document (FDD). Usage: /c4-diagram-create <path-to-fdd.md> <output-folder> [--no-images] [diagram-instructions]
 ---
 
 You MUST invoke the c4-diagram-generator agent using the Task tool with subagent_type="c4-diagram-generator".
 
-Extract the FDD file path, output folder, and optional --no-images flag from the command arguments:
+Extract the FDD file path, output folder, optional --no-images flag, and optional diagram instructions from the command arguments:
 - FDD file path (required)
 - Output folder (required)
 - --no-images flag (optional, if present: skip PNG generation, if absent: generate PNG images by default)
+- Diagram instructions (optional): specific C4 levels and focus areas the user wants generated, described in natural language. Example: "1. C3 (Component): WebSocketServer internals with ConnectionManager and EventRouter"
 
 Pass the following prompt to the agent:
 
@@ -15,6 +16,7 @@ Pass the following prompt to the agent:
 
 Output folder: [OUTPUT_FOLDER]
 PNG generation: [PNG_INSTRUCTION]
+Diagram instructions: [DIAGRAM_INSTRUCTIONS]
 
 Execute your complete workflow (Phases 1-6) following all internal guidelines.
 
@@ -45,6 +47,14 @@ If --no-images flag IS present:
 If --no-images flag IS NOT present (default):
 - [PNG_INSTRUCTION] = "ENABLED"
 - [PNG_BEHAVIOR] = "Execute Phase 5.6: Generate PNG images with automatic error correction (max 3 attempts per file)"
+
+Replace [DIAGRAM_INSTRUCTIONS] based on user input:
+
+If diagram instructions ARE provided:
+- [DIAGRAM_INSTRUCTIONS] = "USER REQUESTED SPECIFIC DIAGRAMS. Generate ONLY these C4 levels/diagrams: [user's diagram list]. Skip automatic sufficiency evaluation for other levels and generate exactly what the user specified. Still validate against FDD content - do not fabricate information not present in the FDD."
+
+If diagram instructions ARE NOT provided (default):
+- [DIAGRAM_INSTRUCTIONS] = "No specific diagrams requested. Agent decides which C4 levels to generate based on FDD information sufficiency (Phase 1)."
 
 ---
 
